@@ -23,6 +23,8 @@ class Dev(Configuration):
 
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+    
+    AUTH_USER_MODEL = "blango_auth.User"
 
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
@@ -91,6 +93,7 @@ class Dev(Configuration):
         "django.contrib.staticfiles",
         "crispy_bootstrap5",
         "crispy_forms",
+        "blango_auth",
         "blog",
     ]
     
