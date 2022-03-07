@@ -9,17 +9,6 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-from datetime import timedelta
-
-from django.conf import settings
-from django.utils import timezone
-
-from blango_auth.models import User
-User.objects.filter(
-    is_active=False,
-    date_joined__lt=timezone.now() - timedelta(days=settings.ACCOUNT_ACTIVATION_DAYS)
-).delete()
-
 
 import os
 import dj_database_url
@@ -39,6 +28,7 @@ class Dev(Configuration):
 
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
     ACCOUNT_ACTIVATION_DAYS = 7
+
     
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
@@ -57,6 +47,33 @@ class Dev(Configuration):
 
 
     # Application definition
+    INSTALLED_APPS = [
+        "debug_toolbar",
+        "django.contrib.admin",
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.messages",
+        "django.contrib.sites",
+        "django.contrib.staticfiles",
+        "crispy_bootstrap5",
+        "crispy_forms",
+        "blango_auth",
+        "blog",
+        "allauth",
+        "allauth.account",
+        "allauth.socialaccount",
+        "allauth.socialaccount.providers.google",
+    ]
+
+    SITE_ID = 1
+
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_USERNAME_REQUIRED = False
+    ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+
 
     LOGGING = {
         "version": 1,
@@ -97,19 +114,6 @@ class Dev(Configuration):
         },
     }
     
-    INSTALLED_APPS = [
-        "debug_toolbar",
-        "django.contrib.admin",
-        "django.contrib.auth",
-        "django.contrib.contenttypes",
-        "django.contrib.sessions",
-        "django.contrib.messages",
-        "django.contrib.staticfiles",
-        "crispy_bootstrap5",
-        "crispy_forms",
-        "blango_auth",
-        "blog",
-    ]
     
     # PASSWORD_HASHERS = [
     #   'django.contrib.auth.hashers.Argon2PasswordHasher',
